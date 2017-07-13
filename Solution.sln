@@ -4,9 +4,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.26430.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.Documents", "1.Documents", "{9958726F-A29E-4817-917E-2F9F73E4F3E8}"
-	ProjectSection(SolutionItems) = preProject
-		1.Documents\Readme.md = 1.Documents\Readme.md
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2.Source", "2.Source", "{695684BC-9DAE-4828-9FD0-C89DD2DDB9AD}"
 EndProject
