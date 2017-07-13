@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("WebUploader.Net")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("A .NET Library for the upload solution of Baidu Fex-team, detail@https://github.com/fex-team/webuploader")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Idea Tech")]
 [assembly: AssemblyProduct("WebUploader.Net")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
