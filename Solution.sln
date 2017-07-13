@@ -33,6 +33,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Sample.WebForm(1)", "3.Samp
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "20961"
+		SlnRelativePath = "3.Sample\Sample.WebForm\"
 		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
 EndProject
