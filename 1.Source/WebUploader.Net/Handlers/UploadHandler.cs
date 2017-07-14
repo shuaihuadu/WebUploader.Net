@@ -21,37 +21,29 @@ namespace WebUploader.Net.Handlers
             byte[] uploadFileBytes = null;
             string uploadFileName = null;
 
-            if (WebUploaderConfig.Base64)
+            var file = Request.Files[WebUploaderConfig.UploadFieldName];
+            uploadFileName = file.FileName;
+
+            if (!CheckFileType(uploadFileName))
             {
-                uploadFileName = WebUploaderConfig.Base64Filename;
-                uploadFileBytes = Convert.FromBase64String(Request[WebUploaderConfig.UploadFieldName]);
+                Result.State = UploadState.TypeNotAllow;
+                return WriteResult();
             }
-            else
+            if (!CheckFileSize(file.ContentLength))
             {
-                var file = Request.Files[WebUploaderConfig.UploadFieldName];
-                uploadFileName = file.FileName;
+                Result.State = UploadState.SizeLimitExceed;
+                return WriteResult();
+            }
 
-                if (!CheckFileType(uploadFileName))
-                {
-                    Result.State = UploadState.TypeNotAllow;
-                    return WriteResult();
-                }
-                if (!CheckFileSize(file.ContentLength))
-                {
-                    Result.State = UploadState.SizeLimitExceed;
-                    return WriteResult();
-                }
-
-                uploadFileBytes = new byte[file.ContentLength];
-                try
-                {
-                    file.InputStream.Read(uploadFileBytes, 0, file.ContentLength);
-                }
-                catch (Exception)
-                {
-                    Result.State = UploadState.NetworkError;
-                    return WriteResult();
-                }
+            uploadFileBytes = new byte[file.ContentLength];
+            try
+            {
+                file.InputStream.Read(uploadFileBytes, 0, file.ContentLength);
+            }
+            catch (Exception)
+            {
+                Result.State = UploadState.NetworkError;
+                return WriteResult();
             }
 
             Result.OriginFileName = uploadFileName;
