@@ -2,7 +2,7 @@
 using System.IO;
 using System.Text.RegularExpressions;
 
-namespace WebUploader.Net.Utility
+namespace WebUploader.Net.Utilities
 {
     internal static class PathFormatter
     {

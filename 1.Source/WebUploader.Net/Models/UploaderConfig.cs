@@ -1,6 +1,13 @@
-﻿namespace WebUploader.Net.Configs
+﻿namespace WebUploader.Net.Models
 {
-    internal class UploadConfig
+    internal class WebUploaderConfig
+    {
+        public UploaderConfig Image { get; set; }
+        public UploaderConfig Video { get; set; }
+        public UploaderConfig Default { get; set; }
+    }
+
+    internal class UploaderConfig
     {
         /// <summary>
         /// 文件命名规则
@@ -15,10 +22,6 @@
         /// </summary>
         public int SizeLimit { get; set; }
         /// <summary>
-        /// 上传允许的文件格式
-        /// </summary>
-        public string[] AllowExtensions { get; set; }
-        /// <summary>
         /// 文件是否以 Base64 的形式上传
         /// </summary>
         public bool Base64 { get; set; }
@@ -26,5 +29,9 @@
         /// Base64 字符串所表示的文件名
         /// </summary>
         public string Base64Filename { get; set; }
+        /// <summary>
+        /// 上传允许的文件格式
+        /// </summary>
+        public string[] AllowExtensions { get; set; }
     }
 }

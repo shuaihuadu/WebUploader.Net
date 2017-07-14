@@ -1,5 +1,4 @@
 ﻿using System.Web;
-using System.Web.Mvc;
 
 namespace WebUploader.Net.Handlers
 {
@@ -9,7 +8,7 @@ namespace WebUploader.Net.Handlers
         {
         }
 
-        public override ContentResult Process()
+        public override string Process()
         {
             return WriteJson(new
             {

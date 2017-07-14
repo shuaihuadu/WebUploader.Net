@@ -2,35 +2,33 @@
 using System.IO;
 using System.Linq;
 using System.Web;
-using System.Web.Mvc;
-using WebUploader.Net.Configs;
 using WebUploader.Net.Models;
-using WebUploader.Net.Utility;
+using WebUploader.Net.Utilities;
 
 namespace WebUploader.Net.Handlers
 {
     internal class UploadHandler : BaseHandler
     {
-        public UploadConfig UploadConfig { get; private set; }
+        public UploaderConfig WebUploaderConfig { get; private set; }
         public UploadResult Result { get; private set; }
-        public UploadHandler(HttpContext context, UploadConfig config) : base(context)
+        public UploadHandler(HttpContext context, UploaderConfig config) : base(context)
         {
-            UploadConfig = config;
-            Result = new UploadResult() { State = UploadState.Unknown };
+            WebUploaderConfig = config;
+            Result = new UploadResult { State = UploadState.Unknown };
         }
-        public override ContentResult Process()
+        public override string Process()
         {
             byte[] uploadFileBytes = null;
             string uploadFileName = null;
 
-            if (UploadConfig.Base64)
+            if (WebUploaderConfig.Base64)
             {
-                uploadFileName = UploadConfig.Base64Filename;
-                uploadFileBytes = Convert.FromBase64String(Request[UploadConfig.UploadFieldName]);
+                uploadFileName = WebUploaderConfig.Base64Filename;
+                uploadFileBytes = Convert.FromBase64String(Request[WebUploaderConfig.UploadFieldName]);
             }
             else
             {
-                var file = Request.Files[UploadConfig.UploadFieldName];
+                var file = Request.Files[WebUploaderConfig.UploadFieldName];
                 uploadFileName = file.FileName;
 
                 if (!CheckFileType(uploadFileName))
@@ -58,7 +56,7 @@ namespace WebUploader.Net.Handlers
 
             Result.OriginFileName = uploadFileName;
 
-            var savePath = PathFormatter.Format(uploadFileName, UploadConfig.PathFormat);
+            var savePath = PathFormatter.Format(uploadFileName, WebUploaderConfig.PathFormat);
             var localPath = Server.MapPath(savePath);
             try
             {
@@ -77,7 +75,7 @@ namespace WebUploader.Net.Handlers
             }
             return WriteResult();
         }
-        private ContentResult WriteResult()
+        private string WriteResult()
         {
             return WriteJson(new
             {
@@ -108,11 +106,11 @@ namespace WebUploader.Net.Handlers
         private bool CheckFileType(string filename)
         {
             var fileExtension = Path.GetExtension(filename).ToLower();
-            return UploadConfig.AllowExtensions.Select(x => x.ToLower()).Contains(fileExtension);
+            return WebUploaderConfig.AllowExtensions.Select(x => x.ToLower()).Contains(fileExtension);
         }
         private bool CheckFileSize(int size)
         {
-            return size < UploadConfig.SizeLimit;
+            return size < WebUploaderConfig.SizeLimit;
         }
     }
 }
