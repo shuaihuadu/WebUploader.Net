@@ -1,6 +1,6 @@
 ﻿namespace WebUploader.Net.Models
 {
-    internal enum UploadState
+    public enum UploadState
     {
         Success = 0,
         SizeLimitExceed = -1,

@@ -46,7 +46,7 @@ namespace WebUploader.Net.Handlers
                 return WriteResult();
             }
 
-            Result.OriginFileName = uploadFileName;
+            Result.OriginalFileName = uploadFileName;
 
             var savePath = PathFormatter.Format(uploadFileName, WebUploaderConfig.PathFormat);
             var localPath = Server.MapPath(savePath);
@@ -69,21 +69,15 @@ namespace WebUploader.Net.Handlers
         }
         private string WriteResult()
         {
-            return WriteJson(new
-            {
-                state = GetStateMessage(Result.State),
-                url = Result.Url,
-                title = Result.OriginFileName,
-                original = Result.OriginFileName,
-                error = Result.ErrorMessage
-            });
+            Result.StateMessage = GetStateMessage(Result.State);
+            return WriteJson(Result);
         }
         private string GetStateMessage(UploadState state)
         {
             switch (state)
             {
                 case UploadState.Success:
-                    return "SUCCESS";
+                    return "Success";
                 case UploadState.FileAccessError:
                     return "文件访问出错，请检查写入权限";
                 case UploadState.SizeLimitExceed:
